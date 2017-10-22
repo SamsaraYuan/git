@@ -8,6 +8,7 @@
 * [git 官网](https://git-scm.com/)
 * 管理公钥的工具[Gitosis](https://github.com/res0nat0r/gitosis)
 * 严格的权限控制[Gitolite](https://github.com/sitaramc/gitolite)
+* 分支策略，master 分支只是用来发布新版本，dev 分支用来干活，个人分支经常合并到 dev 分支就可以了
 ## 简介
 ![本地仓库框架图](https://i.imgur.com/1p6q7xf.png)
 ## 1、常用命令
@@ -48,7 +49,7 @@
 	git tag v1.0							// 最新提交的 commit 打上标签
 	git tag 								// 查看所有标签
 
-	git log --pretty=oneline --abbrev-commit	// 查看历史提交
+	git log --graph --pretty=oneline --abbrev-commit	// 查看历史提交
 	git tag v0.9 commitid						// 给 commitid 打标签
 	git tag
 	git show tagname							// 查看标签信息
@@ -90,6 +91,8 @@
 	git merge dev								// 将 dev 分支合并到当前分支中
 	git rebase
 	git mergetool
+	// 冲突时需要手动合并
+    git merge --no-ff -m "merge with no-ff" dev         // --no-ff 禁用 fast-forward， 合并后会创建一个新的 commit
 		
 ### 撤销
 	git reset --hard HEAD						// 放弃当前工作区的所有修改
@@ -154,7 +157,6 @@
 忽略你自己的带有敏感信息的配置文件，比如存放口令的配置文件。
 
 ## 4、搭建 git 服务器：
-	
 	// 安装
 	sudo apt-git install git
 	// 创建 git 用户
